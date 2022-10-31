@@ -1,6 +1,26 @@
-import Head from "next/head";
-import Image from "next/image";
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
+import { HelloResponse } from "./api/hello";
 
-export default function Home() {
-  return <h1>Hello nus3!!</h1>;
-}
+const sleep = (waitTime: number) =>
+  new Promise((resolve) => setTimeout(resolve, waitTime));
+
+export const getServerSideProps: GetServerSideProps<{
+  data: HelloResponse;
+}> = async () => {
+  await sleep(3000);
+
+  const data: HelloResponse = { name: "nus3" };
+  return { props: { data } };
+};
+
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const Home: NextPage<Props> = ({ data }) => {
+  return <h1>Hello {data.name}!!</h1>;
+};
+
+export default Home;
