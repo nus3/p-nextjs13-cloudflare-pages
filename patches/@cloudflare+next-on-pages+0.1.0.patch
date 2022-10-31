@@ -1,0 +1,15 @@
+diff --git a/node_modules/@cloudflare/next-on-pages/dist/index.js b/node_modules/@cloudflare/next-on-pages/dist/index.js
+index 3ab5ea2..4689c8c 100644
+--- a/node_modules/@cloudflare/next-on-pages/dist/index.js
++++ b/node_modules/@cloudflare/next-on-pages/dist/index.js
+@@ -6001,8 +6001,8 @@ var transform = async ({
+           }
+           let contents = await (0, import_promises.readFile)(functionFile, "utf8");
+           contents = contents.replace(
+-            /Object.defineProperty\(globalThis,\s*"__import_unsupported",\s*{[\s\S]*configurable:\s*([^,}]*).*}\s*\)/gm,
+-            "true"
++            /(Object.defineProperty\(globalThis,\s*"__import_unsupported",\s*{[\s\S]*?configurable:\s*)([^,}]*)(.*}\s*\))/gm,
++            "$1true$3"
+           );
+           if (experimentalMinify) {
+             const parsedContents = parse3(contents, {
